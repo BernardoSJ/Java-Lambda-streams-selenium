@@ -4,7 +4,6 @@ import com.learning.java.lambda.StringOperations;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class TestMainStringOperations {
 
@@ -20,7 +19,5 @@ public class TestMainStringOperations {
         op1.accept("I am learning");
         System.out.println(list);
     }
-
-
 
 }
