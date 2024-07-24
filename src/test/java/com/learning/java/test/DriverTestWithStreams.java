@@ -8,9 +8,8 @@ import org.openqa.selenium.WebElement;
 import org.testng.annotations.*;
 
 import java.util.List;
-import java.util.function.Predicate;
 
-public class DriverTest {
+public class DriverTestWithStreams {
 
     private WebDriver driver;
 
@@ -23,24 +22,18 @@ public class DriverTest {
     @Test
     public void googleTest(){
         this.driver.get("https://google.com");
-        List<WebElement> elements = this.driver.findElements(By.tagName("a"));
-                //.forEach(e -> System.out.println(e.getText()));
+        this.driver.findElements(By.tagName("a"))
+                .stream()
+                .filter(i -> i.getText().trim().length() > 0)
+                .filter(i -> !i.getText().toLowerCase().contains("s"))
+                .map(i -> i.getText().toUpperCase())
+                .forEach(i -> System.out.println(i));
 
-        //Predicate<WebElement> isBlank = (e) -> e.getText().trim().length() == 0;
-        //Predicate<WebElement> hasS = (e) -> e.getText().toLowerCase().contains("s");
-
-
-        System.out.println("Before "+ elements.size());
-
-        //elements.removeIf(isBlank.or(hasS));
-        RulesEngine.get().forEach(elements::removeIf);
-        System.out.println("After "+elements.size());
-
-        elements.forEach(e -> System.out.println(e.getText()));
     }
 
     @AfterTest
     public void quitDriver(){
         this.driver.quit();
     }
+
 }
