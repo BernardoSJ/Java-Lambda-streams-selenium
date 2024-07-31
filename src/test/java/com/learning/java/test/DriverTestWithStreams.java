@@ -24,10 +24,12 @@ public class DriverTestWithStreams {
         this.driver.get("https://google.com");
         this.driver.findElements(By.tagName("a"))
                 .stream()
-                .filter(i -> i.getText().trim().length() > 0)
-                .filter(i -> !i.getText().toLowerCase().contains("s"))
-                .map(i -> i.getText().toUpperCase())
-                .forEach(i -> System.out.println(i));
+                .map(WebElement::getText)
+                .map(String::trim)
+                .filter(e -> e.length() > 0)
+                .filter(i -> !i.toLowerCase().contains("s"))
+                .map(String::toUpperCase)
+                .forEach(System.out::println);
 
     }
 
