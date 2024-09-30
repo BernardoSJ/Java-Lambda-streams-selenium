@@ -30,5 +30,10 @@ public class TestMainTerminalOperations {
                         .min(Comparator.naturalOrder())
                         .get()
         );
+        System.out.println(
+                list.stream()
+                    .filter(s -> s.length() > 3)
+                        .noneMatch(s -> s.contains("e"))
+        );
     }
 }
