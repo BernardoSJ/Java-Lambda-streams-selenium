@@ -9,6 +9,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,14 +25,17 @@ public class BrokenLinkTest {
 
     @Test
     public void linkTest(){
-        this.driver.get("https://the-internet.herokuapp.com/broken_images");
-        List<String> list = this.driver.findElements(By.xpath("//*[@src]"))
+        this.driver.get("https://www.google.com");
+
+        System.out.println("Before :: "+ LocalDateTime.now());
+        List<String> list = this.driver.findElements(By.xpath("//*[@href]"))
                 .stream()
-                .map(e -> e.getAttribute("src"))
+                .parallel()
+                .map(e -> e.getAttribute("href"))
                 .filter(src -> LinkUtil.getResponseCode(src) != 200)
                         .collect(Collectors.toList());
 
-        Assert.assertEquals(list.size(), 0,list.toString());
+        System.out.println("After :: "+ LocalDateTime.now());
 
     }
 

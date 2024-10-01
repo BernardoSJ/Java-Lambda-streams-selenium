@@ -1,7 +1,9 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class CollectorsTest {
 
@@ -16,7 +18,7 @@ public class CollectorsTest {
         list.add("Dog");
         list.add("Delta");
 
-        Set<String> newSet = list.stream()
+       /* Set<String> newSet = list.stream()
                                     .filter(s -> s.length() > 3)
                                     .collect(Collectors.toSet());
 
@@ -26,7 +28,17 @@ public class CollectorsTest {
         String joinedString = list.stream()
                 .filter(s -> s.length() > 3)
                 .collect(Collectors.joining(";"));
-        System.out.println(joinedString);
+        System.out.println(joinedString);*/
+
+        Map<Integer, List<String>> map = list.stream()
+                                                .collect(Collectors.groupingBy(s -> s.length()));
+
+        System.out.println(map);
+
+        Stream<String> stream = list.stream()
+                                        .filter(s -> s.length() > 3);
+        stream.forEach(s -> System.out.println(s));
+        stream.forEach(s -> System.out.println(s.toUpperCase()));
     }
 
 }
